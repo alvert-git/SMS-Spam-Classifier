@@ -14,7 +14,7 @@ router.post('/', protect, async (req, res) => {
     if (!message) {
         return res.status(400).json({ error: "Message content is required for prediction." });
     }
-    const API_URL = `${process.env.NEXT_NEXT_FLASK_URL}/predict`
+    const API_URL = `${process.env.NEXT_FLASK_URL}/predict`
     // 'http://127.0.0.1:5000/predict'
     try {
         // Call the Flask API
