@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+   provider = "prisma-client-js" 
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+// 1. Enums
+enum AuthMethod {
+  local
+  google
+}
+
+enum Result { // Renamed 'result' to 'Result' for standard PascalCase naming convention
+  ham
+  spam
+}
+
+// 2. User Model
+model User_Spam {
+  // Use 'Int' for PostgreSQL auto-incrementing primary keys
+  id Int @id @default(autoincrement())
+  name String
+  email String @unique
+  
+  password String?
+  
+  googleId String?      @unique
+  profilePicture String?
+  authMethods AuthMethod
+  
+  // Relation field to link to the Post_Spam model
+  posts Post_Spam[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Recommended: Use a @map to define the table name in the database
+  @@map("user_spam") 
+}
+
+// 3. Post Model
+model Post_Spam {
+  id               Int          @id @default(autoincrement())
+  
+  user_id          Int
+  
+  // Relation Field: Links this post back to the User model
+  user             User_Spam    @relation(fields: [user_id], references: [id])
+  
+  text             String       @db.Text // Use @db.Text for potentially long text in PostgreSQL
+  
+  // Field for the processed/transformed text
+  transformed_text String?      @db.Text // Made optional, assuming it might be null initially
+
+  result           Result
+
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+
+  // Recommended: Use a @map to define the table name in the database
+  @@map("post_spam")
+}
