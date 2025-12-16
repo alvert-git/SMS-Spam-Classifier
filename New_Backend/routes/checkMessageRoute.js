@@ -14,10 +14,11 @@ router.post('/', protect, async (req, res) => {
     if (!message) {
         return res.status(400).json({ error: "Message content is required for prediction." });
     }
-
+    const API_URL = `${process.env.NEXT_NEXT_FLASK_URL}/predict`
+    // 'http://127.0.0.1:5000/predict'
     try {
         // Call the Flask API
-        const flaskResponse = await axios.post('http://127.0.0.1:5000/predict', { message });
+        const flaskResponse = await axios.post(API_URL, { message });
         const predictionData = flaskResponse.data;
 
         // Save the prediction to the database using the model function
