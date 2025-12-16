@@ -1,19 +1,15 @@
 import pickle
 import string
 import json
+import os
+import ssl # Needed for NLTK download on some systems
+
 from flask import Flask, request, jsonify
 from nltk.corpus import stopwords
 import nltk
 from nltk.stem.porter import PorterStemmer
 
-# --- 1. Model and Transformer Loading ---
-# NOTE: Ensure 'vectorizer.pkl' and 'model.pkl' are in the same directory as this script.
-try:
-    tfidf = pickle.load(open('vectorizer.pkl', 'rb'))
-    model = pickle.load(open('model.pkl', 'rb'))
-except FileNotFoundError:
-    print("Error: 'vectorizer.pkl' or 'model.pkl' not found. Make sure they are in the same directory.")
-    exit()
+
 
 # --- 2. Preprocessing Functions (from your original script) ---
 ps = PorterStemmer()
