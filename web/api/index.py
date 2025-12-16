@@ -1,29 +1,9 @@
 import pickle
 import string
 import json
-import os
-import tempfile
 from flask import Flask, request, jsonify
-import nltk
-
-# Ensure NLTK data is available at runtime (works on Vercel and locally)
-# Use a writable temp directory so serverless environments can download resources.
-nltk_data_dir = os.path.join(tempfile.gettempdir(), 'nltk_data')
-os.makedirs(nltk_data_dir, exist_ok=True)
-if nltk_data_dir not in nltk.data.path:
-    nltk.data.path.append(nltk_data_dir)
-
-try:
-    nltk.data.find('tokenizers/punkt')
-except LookupError:
-    nltk.download('punkt', download_dir=nltk_data_dir)
-
-try:
-    nltk.data.find('corpora/stopwords')
-except LookupError:
-    nltk.download('stopwords', download_dir=nltk_data_dir)
-
 from nltk.corpus import stopwords
+import nltk
 from nltk.stem.porter import PorterStemmer
 
 # --- 1. Model and Transformer Loading ---
