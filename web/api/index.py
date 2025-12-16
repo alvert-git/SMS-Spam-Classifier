@@ -30,7 +30,7 @@ try:
     print("NLTK resources downloaded successfully.")
 except Exception as e:
     print(f"NLTK Download Error: {e}")
-# --- END CRITICAL FIX ---
+
 
 
 # --- 1. Model and Transformer Loading ---
