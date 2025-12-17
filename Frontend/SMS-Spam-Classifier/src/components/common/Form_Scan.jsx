@@ -77,12 +77,10 @@ const Form_Scan = ({ initialMessage = "" }) => {
             >
               {isLoading ? (
                 <>
-                  <span className="animate-spin material-symbols-outlined">refresh</span>
                   Analyzing...
                 </>
               ) : (
                 <>
-                  <span className="material-symbols-outlined text-lg">search</span>
                   Analyze Message
                 </>
               )}
