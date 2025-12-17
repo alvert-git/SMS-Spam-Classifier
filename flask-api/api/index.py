@@ -36,8 +36,11 @@ except Exception as e:
 # --- 1. Model and Transformer Loading ---
 # Determine the current directory to safely load files (web/api/)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_PATH = os.path.join(BASE_DIR, 'model.pkl')
-VECTORIZER_PATH = os.path.join(BASE_DIR, 'vectorizer.pkl')
+
+# Correctly navigate up one level ('..') to the project root, then into 'models/'
+MODEL_PATH = os.path.join(BASE_DIR, '..', 'models', 'model.pkl')
+VECTORIZER_PATH = os.path.join(BASE_DIR, '..', 'models', 'vectorizer.pkl')
+
 
 tfidf = None
 model = None
@@ -50,8 +53,8 @@ try:
     print("Model and Vectorizer loaded successfully!")
     
 except FileNotFoundError:
-    # This will be printed to Vercel logs if the file is missing from the bundle
-    print(f"FATAL ERROR: 'vectorizer.pkl' or 'model.pkl' not found at {BASE_DIR}. Check file paths/inclusion.")
+    # This will now correctly show the full path Vercel is looking at
+    print(f"FATAL ERROR: 'vectorizer.pkl' or 'model.pkl' not found. Checked paths: {VECTORIZER_PATH} and {MODEL_PATH}")
     
 except Exception as e:
     print(f"FATAL ERROR loading models: {e}")
