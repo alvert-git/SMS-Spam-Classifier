@@ -25,11 +25,17 @@ else:
 
 # 2. Download required resources (stopwords and punkt for tokenization)
 try:
+    # Download the standard resources
     nltk.download("punkt", download_dir=nltk_data_dir)
     nltk.download("stopwords", download_dir=nltk_data_dir)
+    
+    # *** ADD THIS LINE TO FIX THE ERROR ***
+    nltk.download("punkt_tab", download_dir=nltk_data_dir) 
+    
     print("NLTK resources downloaded successfully.")
 except Exception as e:
     print(f"NLTK Download Error: {e}")
+
 
 
 
