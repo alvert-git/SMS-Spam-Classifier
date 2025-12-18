@@ -9,7 +9,7 @@ A full-stack web application designed to accurately predict whether a given text
 
 Experience the classifier in action!
 
-[sms-spam-classifier-lyart.vercel.app/]
+[sms-spam-classifier-lyart.vercel.app](https://sms-spam-classifier-lyart.vercel.app)
 
 ## ✨ Features
 
